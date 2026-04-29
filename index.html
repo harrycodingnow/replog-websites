@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RepLog · 用講的就能記錄訓練</title>
-<meta name="description" content="RepLog 是一款語音輸入的健身訓練日誌，AI 自動解析動作、重量、次數，讓你專注訓練。">
+<title>RepLog · 用講的就能記錄訓練 / Log workouts by voice</title>
+<meta name="description" content="RepLog is a voice-first workout logger. Speak a set — AI parses exercise, weight, reps and sets automatically. RepLog 是一款語音輸入的健身訓練日誌，AI 自動解析動作、重量、次數，讓你專注訓練。">
 <style>
   :root{
     --bg:#0f0f10; --fg:#f4f4f3; --muted:#9a9a98; --accent:#7cc26b; --card:#1a1a1c;
@@ -17,9 +17,14 @@
   .logo{font-size:48px;font-weight:800;letter-spacing:-1px;margin:0 0 8px}
   .logo span{color:var(--accent)}
   .tag{color:var(--muted);font-size:18px;margin:0}
-  .lede{font-size:20px;margin:32px 0 48px;text-align:center}
+  .tag .en{display:block;font-size:15px;margin-top:4px;opacity:.85}
+  .lede{font-size:19px;margin:32px 0 12px;text-align:center}
+  .lede.en{color:var(--muted);font-size:17px;margin-top:0;margin-bottom:48px}
   h2{font-size:22px;margin:48px 0 12px;border-left:3px solid var(--accent);padding-left:12px}
+  h2 .en{color:var(--muted);font-weight:500;font-size:16px;margin-left:8px}
   ul{padding-left:20px}
+  ul li{margin-bottom:6px}
+  ul li .en{display:block;color:var(--muted);font-size:14px;margin-top:2px}
   .links{display:grid;gap:12px;margin:32px 0}
   .links a{display:block;padding:18px 22px;background:var(--card);color:var(--fg);
           text-decoration:none;border-radius:12px;border:1px solid #2a2a2c;
@@ -37,34 +42,55 @@
 
 <header>
   <h1 class="logo">Rep<span>Log</span></h1>
-  <p class="tag">用講的，就能記錄每一組訓練</p>
+  <p class="tag">
+    用講的，就能記錄每一組訓練
+    <span class="en">Log every set just by speaking.</span>
+  </p>
 </header>
 
 <p class="lede">
   舉完一組，按下錄音，自然地說出你做的動作——「臥推 80 公斤 8 下三組」——
   RepLog 用 AI 把語音轉成完整的訓練紀錄，讓你專注在動作上，而不是手機上。
 </p>
+<p class="lede en">
+  Finish a set, tap record, and say what you just did — “Bench press, 80 kilos, 8 reps, 3 sets.”
+  RepLog turns your voice into a complete workout log, so you stay focused on the lift, not your phone.
+</p>
 
-<h2>主要功能</h2>
+<h2>主要功能 <span class="en">Features</span></h2>
 <ul>
-  <li>🎙️ 語音記錄訓練組數（支援繁中、英文）</li>
-  <li>🤖 AI 自動解析動作、重量、次數、組數</li>
-  <li>📅 訓練日記，按日期回顧每一次訓練</li>
-  <li>📈 個人最佳紀錄（PR）自動偵測 + 力量趨勢圖</li>
-  <li>⚖️ 體重變化追蹤</li>
-  <li>⏱️ 組間休息計時</li>
-  <li>🔒 完全離線可用，資料只存在你的裝置上</li>
+  <li>🎙️ 語音記錄訓練組數（支援繁中、英文）
+    <span class="en">Voice logging for sets (Traditional Chinese & English).</span>
+  </li>
+  <li>🤖 AI 自動解析動作、重量、次數、組數
+    <span class="en">AI auto-parses exercise, weight, reps and sets.</span>
+  </li>
+  <li>📅 訓練日記，按日期回顧每一次訓練
+    <span class="en">Training diary — review every workout by date.</span>
+  </li>
+  <li>📈 個人最佳紀錄（PR）自動偵測 + 力量趨勢圖
+    <span class="en">Automatic PR detection plus strength trend charts.</span>
+  </li>
+  <li>⚖️ 體重變化追蹤
+    <span class="en">Bodyweight tracking over time.</span>
+  </li>
+  <li>⏱️ 組間休息計時
+    <span class="en">Built-in rest timer between sets.</span>
+  </li>
+  <li>🔒 完全離線可用，資料只存在你的裝置上
+    <span class="en">Fully offline — your data never leaves your device.</span>
+  </li>
 </ul>
 
-<h2>支援與政策</h2>
+<h2>支援與政策 <span class="en">Support &amp; Policies</span></h2>
 <div class="links">
   <a href="./support.html">
     <strong>支援中心 / Support</strong>
-    <span>常見問題、聯絡方式、回報問題</span>
+    <span>常見問題、聯絡方式、回報問題 · FAQ, contact, bug reports</span>
   </a>
   <a href="./privacy.html">
     <strong>隱私權政策 / Privacy Policy</strong>
-    <span>了解 RepLog 如何處理你的資料</span>
+    <span>了解 RepLog 如何處理你的資料 · How RepLog handles your data</span>
   </a>
 </div>
 
