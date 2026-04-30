@@ -1,0 +1,21 @@
+/* RepLog language switcher — show only the active language. */
+body[data-lang="en"] [data-lang-block="zh"],
+body[data-lang="en"] [data-lang="zh"] { display: none !important; }
+body[data-lang="zh"] [data-lang-block="en"],
+body[data-lang="zh"] [data-lang="en"] { display: none !important; }
+
+/* Toggle button — pill style that adapts to nav background. */
+.lang-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 56px; padding: 7px 14px; border-radius: 999px;
+  border: 1.5px solid currentColor; background: transparent;
+  font-family: "Archivo Black", "Inter", sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 1px;
+  cursor: pointer; transition: background .2s, color .2s, transform .15s;
+  color: inherit; line-height: 1;
+}
+.lang-toggle:hover { transform: translateY(-1px); }
+.nav.dark .lang-toggle { color: #fff; }
+.nav.dark .lang-toggle:hover { background: #E97B4A; border-color: #E97B4A; color: #0a0a0a; }
+.nav.light .lang-toggle { color: #111; }
+.nav.light .lang-toggle:hover { background: #111; border-color: #111; color: #fff; }

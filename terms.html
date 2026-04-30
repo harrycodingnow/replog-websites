@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./lang.css">
 <style>
   :root{
     --black:#0a0a0a;
@@ -73,26 +74,28 @@
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav light">
   <div class="nav-inner">
     <a href="./" class="brand">REP<span class="dot">·</span>LOG</a>
     <ul>
       <li><a href="./support.html">Support</a></li>
       <li><a href="./privacy.html">Privacy</a></li>
       <li><a href="./terms.html" class="active">Terms</a></li>
+      <li><button type="button" class="lang-toggle" data-lang-toggle>中文</button></li>
     </ul>
   </div>
 </nav>
 
 <div class="wrap">
 
-<a href="./" class="back">← Back / 回到首頁</a>
+<a href="./" class="back"><span data-lang="en">← Back</span><span data-lang="zh">← 回到首頁</span></a>
 
-<div class="page-eyebrow">Legal · 法律</div>
-<h1>Terms of <span class="o">Use.</span></h1>
-<p class="sub">使用條款 / End-User License Agreement (EULA)</p>
-<span class="effective">Effective / 生效日期 · 2026-04-30</span>
+<div class="page-eyebrow"><span data-lang="en">Legal</span><span data-lang="zh">法律</span></div>
+<h1><span data-lang="en">Terms of <span class="o">Use.</span></span><span data-lang="zh">使用 <span class="o">條款。</span></span></h1>
+<p class="sub"><span data-lang="en">End-User License Agreement (EULA)</span><span data-lang="zh">使用條款 / 終端使用者授權協議</span></p>
+<span class="effective"><span data-lang="en">Effective · 2026-04-30</span><span data-lang="zh">生效日期 · 2026-04-30</span></span>
 
+<div data-lang-block="en">
 <p style="margin-top:32px">Please read these Terms of Use ("Terms") carefully before downloading, installing, or using the RepLog application ("App"). By using the App, you agree to be bound by these Terms. If you do not agree, do not use the App.</p>
 
 <h2><span class="num">01</span>License</h2>
@@ -142,9 +145,11 @@
 
 <h2><span class="num">14</span>Contact</h2>
 <p>Questions about these Terms? Email <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a>.</p>
+</div>
 
-<div class="lang-divider">中文版 · Chinese</div>
 
+
+<div data-lang-block="zh">
 <p>下載、安裝或使用 RepLog 應用程式（以下稱「本 App」）前，請仔細閱讀本使用條款（以下稱「本條款」）。使用本 App 即表示你同意受本條款拘束。如不同意，請勿使用本 App。</p>
 
 <h2><span class="num">01</span>授權</h2>
@@ -194,12 +199,15 @@
 
 <h2><span class="num">14</span>聯絡方式</h2>
 <p>如對本條款有任何疑問，請來信 <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a>。</p>
+</div>
 
 </div>
 
 <footer>
-  RepLog · Made with 💪 in Taiwan · <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a>
+  <span data-lang="en">RepLog · Made with 💪 in Taiwan · <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a></span><span data-lang="zh">RepLog · 在台灣用 💪 打造 · <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a></span>
 </footer>
+
+<script src="./lang.js"></script>
 
 </body>
 </html>
