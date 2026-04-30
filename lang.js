@@ -7,8 +7,7 @@
     var saved = null;
     try { saved = localStorage.getItem(KEY); } catch (e) {}
     if (SUPPORTED.indexOf(saved) !== -1) return saved;
-    var browser = (navigator.language || 'en').toLowerCase();
-    return browser.indexOf('zh') === 0 ? 'zh' : 'en';
+    return 'en';
   }
 
   function apply(lang) {
