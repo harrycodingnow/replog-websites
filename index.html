@@ -3,101 +3,330 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RepLog · 用講的就能記錄訓練 / Log workouts by voice</title>
+<title>RepLog · Train. Speak. Logged.</title>
 <meta name="description" content="RepLog is a voice-first workout logger. Speak a set — AI parses exercise, weight, reps and sets automatically. RepLog 是一款語音輸入的健身訓練日誌，AI 自動解析動作、重量、次數，讓你專注訓練。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0f0f10; --fg:#f4f4f3; --muted:#9a9a98; --accent:#7cc26b; --card:#1a1a1c;
+    --black:#0a0a0a;
+    --ink:#111;
+    --white:#ffffff;
+    --cream:#f5f1ec;
+    --orange:#E97B4A;
+    --orange-deep:#C9521F;
+    --muted:#7a7a78;
+    --line:#1f1f1f;
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Helvetica Neue",sans-serif;
-       background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:760px;margin:0 auto;padding:64px 24px}
-  header{text-align:center;margin-bottom:48px}
-  .logo{font-size:48px;font-weight:800;letter-spacing:-1px;margin:0 0 8px}
-  .logo span{color:var(--accent)}
-  .tag{color:var(--muted);font-size:18px;margin:0}
-  .tag .en{display:block;font-size:15px;margin-top:4px;opacity:.85}
-  .lede{font-size:19px;margin:32px 0 12px;text-align:center}
-  .lede.en{color:var(--muted);font-size:17px;margin-top:0;margin-bottom:48px}
-  h2{font-size:22px;margin:48px 0 12px;border-left:3px solid var(--accent);padding-left:12px}
-  h2 .en{color:var(--muted);font-weight:500;font-size:16px;margin-left:8px}
-  ul{padding-left:20px}
-  ul li{margin-bottom:6px}
-  ul li .en{display:block;color:var(--muted);font-size:14px;margin-top:2px}
-  .links{display:grid;gap:12px;margin:32px 0}
-  .links a{display:block;padding:18px 22px;background:var(--card);color:var(--fg);
-          text-decoration:none;border-radius:12px;border:1px solid #2a2a2c;
-          transition:transform .15s,border-color .15s}
-  .links a:hover{transform:translateY(-2px);border-color:var(--accent)}
-  .links a strong{display:block;font-size:17px;margin-bottom:4px}
-  .links a span{color:var(--muted);font-size:14px}
-  footer{text-align:center;color:var(--muted);font-size:14px;margin-top:64px;padding-top:24px;border-top:1px solid #2a2a2c}
-  footer a{color:var(--accent);text-decoration:none}
-  code{background:#2a2a2c;padding:2px 6px;border-radius:4px;font-size:14px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--black);color:var(--white);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC",sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ====== TOPNAV ====== */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.85);backdrop-filter:blur(20px);
+       border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:"Archivo Black",sans-serif;font-size:22px;letter-spacing:-.5px;text-transform:uppercase}
+  .brand .dot{color:var(--orange)}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:14px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+  .nav ul a{color:var(--white);opacity:.75;transition:opacity .2s}
+  .nav ul a:hover{opacity:1}
+  .nav .cta{background:var(--orange);color:#111;padding:10px 18px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:.5px;text-transform:uppercase;transition:transform .2s}
+  .nav .cta:hover{transform:scale(1.04)}
+
+  @media (max-width:720px){
+    .nav ul{display:none}
+  }
+
+  /* ====== HERO ====== */
+  .hero{position:relative;overflow:hidden;background:var(--orange);color:var(--ink)}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(1200px 800px at 80% 20%, rgba(255,255,255,.18), transparent 60%),
+               radial-gradient(900px 700px at 10% 90%, rgba(201,82,31,.55), transparent 60%);
+    pointer-events:none}
+  .hero-inner{position:relative;max-width:1280px;margin:0 auto;padding:96px 28px 72px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero-eyebrow{font-size:13px;font-weight:800;letter-spacing:6px;text-transform:uppercase;color:#3a1a08;margin-bottom:24px}
+  .hero h1{font-family:"Archivo Black",sans-serif;font-weight:900;letter-spacing:-3px;line-height:.92;
+    font-size:clamp(64px,9vw,148px);text-transform:uppercase}
+  .hero h1 .w{color:var(--white)}
+  .hero p.lead{margin-top:28px;font-size:20px;font-weight:500;color:#2a1208;max-width:560px;line-height:1.5}
+  .hero p.lead .zh{display:block;margin-bottom:6px;font-weight:600;color:#1a0a04}
+  .hero-cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:18px 28px;border-radius:999px;
+    font-weight:800;font-size:15px;letter-spacing:.6px;text-transform:uppercase;transition:transform .2s,background .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--ink);color:var(--white)}
+  .btn-primary:hover{background:#000}
+  .btn-ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--white)}
+
+  .hero-device{position:relative;display:flex;justify-content:center}
+  .phone{width:min(420px,90%);aspect-ratio:9/19.5;border-radius:48px;
+    background:#111;box-shadow:0 60px 120px rgba(0,0,0,.45),0 20px 40px rgba(0,0,0,.25),
+      0 0 0 10px rgba(0,0,0,.85),0 0 0 12px rgba(255,255,255,.18);
+    overflow:hidden;position:relative}
+  .phone .screen{position:absolute;inset:6px;border-radius:42px;background:var(--cream);
+    display:flex;align-items:center;justify-content:center;color:var(--ink);
+    font-family:"Archivo Black",sans-serif;font-size:46px;letter-spacing:-1px;text-align:center;
+    background:linear-gradient(180deg,#f5f1ec 0%,#efe3d6 100%)}
+  .phone .pill{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:90px;height:24px;background:#000;border-radius:99px}
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;padding:72px 24px 48px}
+    .hero-device{order:-1}
+    .phone{width:min(320px,80%)}
+  }
+
+  /* ====== TICKER ====== */
+  .ticker{background:var(--ink);color:var(--white);overflow:hidden;border-top:2px solid var(--orange);border-bottom:2px solid var(--orange)}
+  .ticker-track{display:flex;gap:64px;padding:18px 0;white-space:nowrap;
+    font-family:"Archivo Black",sans-serif;font-size:22px;letter-spacing:2px;text-transform:uppercase;
+    animation:scroll 28s linear infinite}
+  .ticker-track span{display:inline-flex;align-items:center;gap:64px}
+  .ticker-track .dot{color:var(--orange)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ====== FEATURE BLOCKS ====== */
+  section{padding:120px 28px}
+  .container{max-width:1280px;margin:0 auto}
+  .section-eyebrow{font-size:13px;font-weight:800;letter-spacing:6px;text-transform:uppercase;color:var(--orange);margin-bottom:18px}
+  .section-h2{font-family:"Archivo Black",sans-serif;font-size:clamp(44px,6vw,88px);line-height:.95;letter-spacing:-2px;text-transform:uppercase;margin-bottom:20px}
+  .section-h2 .o{color:var(--orange)}
+  .section-sub{color:#bcbcb8;font-size:18px;max-width:680px;line-height:1.55}
+  .section-sub .zh{display:block;color:#fff;margin-bottom:6px}
+
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+  .feat{background:var(--ink);border:1px solid var(--line);border-radius:24px;padding:36px 28px;
+    transition:transform .2s,border-color .2s}
+  .feat:hover{transform:translateY(-4px);border-color:var(--orange)}
+  .feat .icon{width:56px;height:56px;border-radius:16px;background:var(--orange);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:24px;font-weight:900}
+  .feat h3{font-family:"Archivo Black",sans-serif;font-size:24px;letter-spacing:-.5px;text-transform:uppercase;margin-bottom:10px}
+  .feat p{color:#9c9c98;font-size:15px;line-height:1.55}
+  .feat p .zh{display:block;color:#dcdcd8;margin-bottom:4px}
+  @media (max-width:900px){.features{grid-template-columns:1fr}}
+
+  /* ====== HOW (split) ====== */
+  .how{background:var(--cream);color:var(--ink)}
+  .how .section-eyebrow{color:var(--orange-deep)}
+  .how .section-sub{color:#3a3a36}
+  .how .section-sub .zh{color:#0a0a0a}
+  .steps{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .step{position:relative;padding-top:24px}
+  .step .num{font-family:"Archivo Black",sans-serif;font-size:96px;line-height:1;color:var(--orange);letter-spacing:-4px}
+  .step h4{font-family:"Archivo Black",sans-serif;font-size:22px;text-transform:uppercase;margin:8px 0 10px;letter-spacing:-.5px}
+  .step p{color:#3a3a36;font-size:15px;line-height:1.55}
+  .step p .zh{display:block;color:#0a0a0a;margin-bottom:4px}
+  @media (max-width:900px){.steps{grid-template-columns:1fr}}
+
+  /* ====== STATEMENT BAR ====== */
+  .statement{background:var(--orange);color:var(--ink);text-align:center;padding:140px 28px}
+  .statement h2{font-family:"Archivo Black",sans-serif;font-size:clamp(48px,8vw,128px);line-height:.92;letter-spacing:-3px;text-transform:uppercase}
+  .statement h2 .w{color:var(--white)}
+  .statement p{margin-top:24px;font-size:18px;color:#3a1a08;max-width:640px;margin-left:auto;margin-right:auto}
+
+  /* ====== LINKS / CTA bottom ====== */
+  .links-section{background:var(--black);padding:120px 28px}
+  .links-grid{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .link-card{background:var(--ink);border:1px solid var(--line);border-radius:20px;padding:36px;
+    display:flex;justify-content:space-between;align-items:center;transition:border-color .2s,transform .2s}
+  .link-card:hover{border-color:var(--orange);transform:translateY(-3px)}
+  .link-card strong{font-family:"Archivo Black",sans-serif;font-size:24px;text-transform:uppercase;display:block;margin-bottom:6px}
+  .link-card span{color:#9c9c98;font-size:14px}
+  .link-card .arrow{font-size:32px;color:var(--orange);font-family:"Archivo Black",sans-serif}
+  @media (max-width:720px){.links-grid{grid-template-columns:1fr}}
+
+  /* ====== FOOTER ====== */
+  footer{padding:48px 28px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line);background:var(--black)}
+  footer a{color:var(--orange);font-weight:600}
+
+  /* ====== UTIL ====== */
+  ::selection{background:var(--orange);color:var(--ink)}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <h1 class="logo">Rep<span>Log</span></h1>
-  <p class="tag">
-    用講的，就能記錄每一組訓練
-    <span class="en">Log every set just by speaking.</span>
-  </p>
-</header>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">REP<span class="dot">·</span>LOG</a>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How</a></li>
+      <li><a href="./support.html">Support</a></li>
+      <li><a href="./privacy.html">Privacy</a></li>
+      <li><a href="./terms.html">Terms</a></li>
+    </ul>
+    <a class="cta" href="#">Get on App Store</a>
+  </div>
+</nav>
 
-<p class="lede">
-  舉完一組，按下錄音，自然地說出你做的動作——「臥推 80 公斤 8 下三組」——
-  RepLog 用 AI 把語音轉成完整的訓練紀錄，讓你專注在動作上，而不是手機上。
-</p>
-<p class="lede en">
-  Finish a set, tap record, and say what you just did — “Bench press, 80 kilos, 8 reps, 3 sets.”
-  RepLog turns your voice into a complete workout log, so you stay focused on the lift, not your phone.
-</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">The Voice-First Workout Log</div>
+      <h1>
+        TRAIN.<br>
+        SPEAK.<br>
+        <span class="w">LOGGED.</span>
+      </h1>
+      <p class="lead">
+        Finish a set. Tap record. Say what you just did. AI writes the perfect log entry — your hands stay on the bar.
+        <span class="zh">舉完一組，按下錄音，講出你做的動作。AI 自動寫進日記，雙手不必離開槓鈴。</span>
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">⬇ Download on App Store</a>
+        <a href="#features" class="btn btn-ghost">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-device">
+      <div class="phone">
+        <div class="pill"></div>
+        <div class="screen">REP<br>LOG</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2>主要功能 <span class="en">Features</span></h2>
-<ul>
-  <li>🎙️ 語音記錄訓練組數（支援繁中、英文）
-    <span class="en">Voice logging for sets (Traditional Chinese & English).</span>
-  </li>
-  <li>🤖 AI 自動解析動作、重量、次數、組數
-    <span class="en">AI auto-parses exercise, weight, reps and sets.</span>
-  </li>
-  <li>📅 訓練日記，按日期回顧每一次訓練
-    <span class="en">Training diary — review every workout by date.</span>
-  </li>
-  <li>📈 個人最佳紀錄（PR）自動偵測 + 力量趨勢圖
-    <span class="en">Automatic PR detection plus strength trend charts.</span>
-  </li>
-  <li>⚖️ 體重變化追蹤
-    <span class="en">Bodyweight tracking over time.</span>
-  </li>
-  <li>⏱️ 組間休息計時
-    <span class="en">Built-in rest timer between sets.</span>
-  </li>
-  <li>🔒 完全離線可用，資料只存在你的裝置上
-    <span class="en">Fully offline — your data never leaves your device.</span>
-  </li>
-</ul>
-
-<h2>支援與政策 <span class="en">Support &amp; Policies</span></h2>
-<div class="links">
-  <a href="./support.html">
-    <strong>支援中心 / Support</strong>
-    <span>常見問題、聯絡方式、回報問題 · FAQ, contact, bug reports</span>
-  </a>
-  <a href="./privacy.html">
-    <strong>隱私權政策 / Privacy Policy</strong>
-    <span>了解 RepLog 如何處理你的資料 · How RepLog handles your data</span>
-  </a>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>SPEAK YOUR SETS <span class="dot">●</span> AUTO-PARSED <span class="dot">●</span> NEVER DROP THE BAR <span class="dot">●</span> PR ON AUTOPILOT <span class="dot">●</span> PUSH · PULL · LEGS <span class="dot">●</span> BUILT FOR LIFTERS <span class="dot">●</span></span>
+    <span>SPEAK YOUR SETS <span class="dot">●</span> AUTO-PARSED <span class="dot">●</span> NEVER DROP THE BAR <span class="dot">●</span> PR ON AUTOPILOT <span class="dot">●</span> PUSH · PULL · LEGS <span class="dot">●</span> BUILT FOR LIFTERS <span class="dot">●</span></span>
+  </div>
 </div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-eyebrow">Features · 主要功能</div>
+    <h2 class="section-h2">Built for the <span class="o">last rep.</span></h2>
+    <p class="section-sub">
+      Tools that exist for one reason — to keep you logging the next set, not fiddling with your phone.
+      <span class="zh">為訓練而生的功能。沒有多餘的儀表板、沒有打字、沒有理由不記下這一組。</span>
+    </p>
+
+    <div class="features">
+      <div class="feat">
+        <div class="icon">🎙</div>
+        <h3>Voice Logging</h3>
+        <p>Speak a set in Chinese or English. Zero typing between rounds.
+          <span class="zh">語音記錄訓練組數，支援繁中與英文。組間零打字。</span></p>
+      </div>
+      <div class="feat">
+        <div class="icon">🤖</div>
+        <h3>AI Parsed</h3>
+        <p>Exercise, weight, reps and sets — auto-detected. Tap once to fix anything.
+          <span class="zh">自動解析動作、重量、次數、組數，一鍵修正錯誤。</span></p>
+      </div>
+      <div class="feat">
+        <div class="icon">📅</div>
+        <h3>Training Diary</h3>
+        <p>Calendar view auto-tags every session — push, pull, legs at a glance.
+          <span class="zh">月曆視圖按日期回顧每一次訓練，推拉腿一目了然。</span></p>
+      </div>
+      <div class="feat">
+        <div class="icon">📈</div>
+        <h3>PR Autopilot</h3>
+        <p>Automatic PR detection. Big-three strength trends update in real time.
+          <span class="zh">個人最佳紀錄自動偵測，三大項力量趨勢圖即時更新。</span></p>
+      </div>
+      <div class="feat">
+        <div class="icon">⏱</div>
+        <h3>Rest Timer</h3>
+        <p>Built-in between-set rest timer. Keep your tempo locked in.
+          <span class="zh">組間休息計時，讓節奏穩定可控。</span></p>
+      </div>
+      <div class="feat">
+        <div class="icon">🔒</div>
+        <h3>Local Only</h3>
+        <p>Fully offline. Your data stays on your device. No account, ever.
+          <span class="zh">完全離線可用，資料只存在你的裝置上，無需註冊帳號。</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="how">
+  <div class="container">
+    <div class="section-eyebrow">How It Works · 三步驟</div>
+    <h2 class="section-h2">Three steps. <span style="color:var(--orange-deep)">No typing.</span></h2>
+    <p class="section-sub">
+      From last rep to logged set in one sentence.
+      <span class="zh">從練完一組到日記完成，只需要一句話。</span>
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h4>Tap Record</h4>
+        <p>Press record. Hands stay on the bar.
+          <span class="zh">按下錄音鍵，雙手不必離開槓鈴。</span></p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h4>Say The Set</h4>
+        <p>“Bench, 80 kilos, 8 reps, 3 sets.” That's it.
+          <span class="zh">「臥推 80 公斤 8 下三組」自然講完。</span></p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h4>Logged</h4>
+        <p>AI writes the entry. PRs and trends update instantly.
+          <span class="zh">AI 自動寫入日記，PR 與趨勢圖即時更新。</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <h2>JUST<br><span class="w">SPEAK.</span></h2>
+  <p>Stay in the lift — let your voice do the logging. 用講的，記下每一組。</p>
+</section>
+
+<!-- LINKS -->
+<section class="links-section">
+  <div class="container">
+    <div class="section-eyebrow">Resources · 支援與政策</div>
+    <h2 class="section-h2">More <span class="o">info.</span></h2>
+
+    <div class="links-grid">
+      <a class="link-card" href="./support.html">
+        <div>
+          <strong>Support · 支援中心</strong>
+          <span>FAQ, contact, bug reports · 常見問題、聯絡方式、回報問題</span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="./privacy.html">
+        <div>
+          <strong>Privacy · 隱私權政策</strong>
+          <span>How RepLog handles your data · 了解我們如何處理你的資料</span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="./terms.html">
+        <div>
+          <strong>Terms · 使用條款</strong>
+          <span>Terms of use & EULA · 使用條款與授權合約</span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <footer>
-  Made with 💪 in Taiwan · Contact: <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a>
+  Made with 💪 in Taiwan · <a href="mailto:harryhou1107@gmail.com">harryhou1107@gmail.com</a>
 </footer>
 
-</div>
 </body>
 </html>
