@@ -27,14 +27,14 @@
   img{max-width:100%;display:block}
 
   /* ====== TOPNAV ====== */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(233,123,74,.92);backdrop-filter:blur(20px);
-       border-bottom:1px solid rgba(26,10,4,.15)}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);
+       border-bottom:1px solid rgba(255,255,255,.08)}
   .nav-inner{max-width:1280px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
-  .brand{font-family:"Archivo Black",sans-serif;font-size:22px;letter-spacing:-.5px;text-transform:uppercase;color:var(--ink)}
-  .brand .dot{color:var(--white)}
+  .brand{font-family:"Archivo Black",sans-serif;font-size:22px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)}
+  .brand .dot{color:var(--orange)}
   .nav ul{display:flex;gap:28px;list-style:none;font-size:14px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-  .nav ul a{color:var(--ink);opacity:.8;transition:opacity .2s}
-  .nav ul a:hover{opacity:1}
+  .nav ul a{color:var(--white);opacity:.7;transition:opacity .2s,color .2s}
+  .nav ul a:hover{opacity:1;color:var(--orange)}
 
   @media (max-width:720px){
     .nav ul{display:none}
@@ -77,9 +77,10 @@
   }
 
   /* ====== FOOTER ====== */
-  footer{padding:32px 28px;text-align:center;color:#3a1a08;font-size:13px;font-weight:600;
-    border-top:1px solid rgba(26,10,4,.15);background:var(--orange)}
-  footer a{color:var(--ink);font-weight:800;text-decoration:underline}
+  footer{padding:32px 28px;text-align:center;color:rgba(255,255,255,.7);font-size:13px;font-weight:600;
+    border-top:1px solid rgba(255,255,255,.08);background:var(--black)}
+  footer a{color:var(--orange);font-weight:800;text-decoration:none}
+  footer a:hover{text-decoration:underline}
 
   /* ====== UTIL ====== */
   ::selection{background:var(--ink);color:var(--orange)}
